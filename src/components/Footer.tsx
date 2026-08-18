@@ -35,7 +35,7 @@ export default function Footer({ onShopCategory }: FooterProps) {
               <span className="font-display font-semibold text-xl text-cream-100 block">
                 Ember <span className="text-honey-400 italic">&</span> Oak
               </span>
-              <span className="text-[10px] tracking-[0.32em] text-cream-500 uppercase mt-1 block">Roasting Co.</span>
+              <span className="text-[12px] tracking-[0.32em] text-cream-500 uppercase mt-1 block">Roasting Co.</span>
             </span>
           </div>
           <p className="text-cream-500 text-sm leading-relaxed mt-5 max-w-sm">
@@ -56,7 +56,7 @@ export default function Footer({ onShopCategory }: FooterProps) {
               <li key={c}>
                 <button
                   onClick={() => onShopCategory(c)}
-                  className="group text-sm font-semibold text-cream-300 hover:text-honey-300 transition-colors flex items-center gap-2"
+                  className="group -mx-2 flex min-h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-sm font-semibold text-cream-300 hover:bg-bark-800/70 hover:text-honey-300 transition-colors"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-bark-600 group-hover:bg-honey-400 transition-colors" />
                   {c === "All" ? "Everything" : c}
@@ -72,38 +72,43 @@ export default function Footer({ onShopCategory }: FooterProps) {
             Roast notes, brew guides and 10% off your first bag — roughly one email a month, never more.
           </p>
           {subscribed ? (
-            <p className="mt-5 flex items-center gap-2.5 text-olive-300 font-bold text-sm bg-olive-500/10 border border-olive-500/25 rounded-full px-5 py-3.5">
+            <p role="status" aria-live="polite" className="mt-5 flex flex-wrap items-center gap-2.5 text-olive-300 font-bold text-sm leading-5 bg-olive-500/10 border border-olive-500/25 rounded-2xl px-5 py-3.5">
               <CheckIcon className="w-4 h-4" /> You're on the list — check your inbox.
             </p>
           ) : (
             <>
               <div className="flex gap-2.5 mt-5">
                 <input
+                  id="newsletter-email"
                   type="email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setSubError(false); }}
                   onKeyDown={(e) => e.key === "Enter" && subscribe()}
                   placeholder="you@slowmail.com"
-                  className={`flex-1 bg-bark-800 border rounded-full px-5 py-3 text-sm text-cream-100 placeholder-cream-500 outline-none transition-all duration-300 ${
+                  aria-label="Email address"
+                  aria-invalid={subError}
+                  aria-describedby={subError ? "newsletter-error" : undefined}
+                  className={`flex-1 h-11 bg-bark-800 border rounded-full px-5 text-sm text-cream-100 placeholder-cream-500 outline-none transition-all duration-300 ${
                     subError ? "border-rust-500" : "border-bark-600/70 focus:border-honey-500/70"
                   }`}
                 />
                 <button
+                  type="button"
                   onClick={subscribe}
-                  aria-label="Subscribe"
-                  className="group bg-honey-500 hover:bg-honey-400 text-bark-950 rounded-full px-5 py-3 transition-all duration-300 active:scale-95"
+                  aria-label="Subscribe to newsletter"
+                  className="group flex h-11 min-w-11 shrink-0 items-center justify-center bg-honey-500 hover:bg-honey-400 text-bark-950 rounded-full px-3 transition-all duration-300 active:scale-95"
                 >
                   <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </button>
               </div>
-              {subError && <p className="text-[12px] text-rust-400 font-semibold mt-2 ml-2">That email doesn't look quite brewed.</p>}
+              {subError && <p id="newsletter-error" role="alert" className="text-[12px] text-rust-400 font-semibold mt-2 ml-2">That email doesn't look quite brewed.</p>}
             </>
           )}
         </div>
       </div>
 
       <div className="relative border-t border-bark-700/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12.5px] text-cream-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[13px] leading-5 text-cream-500">
           <p>© 2026 Ember &amp; Oak Roasting Co. All beans reserved.</p>
           <p className="text-cream-600">Demo storefront — no real orders, payments or beans were harmed.</p>
         </div>
