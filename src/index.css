@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Karla", "Segoe UI", sans-serif;
+
+  --color-bark-950: #120c07;
+  --color-bark-900: #1a120b;
+  --color-bark-850: #211710;
+  --color-bark-800: #2a1d13;
+  --color-bark-750: #332417;
+  --color-bark-700: #3d2c1b;
+  --color-bark-600: #55402a;
+  --color-bark-500: #73593b;
+
+  --color-cream-100: #f7efdf;
+  --color-cream-200: #efe3cb;
+  --color-cream-300: #dfcca9;
+  --color-cream-400: #c4ac85;
+  --color-cream-500: #a18a64;
+
+  --color-honey-200: #f7d9a4;
+  --color-honey-300: #f0be72;
+  --color-honey-400: #e5a44a;
+  --color-honey-500: #d68e2f;
+  --color-honey-600: #b57223;
+
+  --color-olive-300: #c0c89b;
+  --color-olive-400: #a3ae7e;
+  --color-olive-500: #87925f;
+
+  --color-rust-400: #d2764a;
+  --color-rust-500: #bc5f36;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bark-950);
+  color: var(--color-cream-200);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-honey-400);
+  color: var(--color-bark-950);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-bark-600) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--color-bark-600); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---- ambient grain ---- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- scroll reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- keyframes ---- */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 34s linear infinite;
+  width: max-content;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slower { animation: spin-slow 26s linear infinite; }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translateY(5px) scaleX(0.9); }
+  35% { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-13px) scaleX(1.15); }
+}
+.steam-line { animation: steam-rise 2.6s ease-out infinite; }
+
+@keyframes badge-pop {
+  0% { transform: scale(0.4); }
+  55% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.badge-pop { animation: badge-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.965); }
+  to { opacity: 1; transform: none; }
+}
+.modal-in { animation: modal-in 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in { animation: fade-in 0.3s ease; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+.toast-in { animation: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@keyframes ember-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+.ember-glow { animation: ember-glow 5s ease-in-out infinite; }
+
+/* number inputs / steppers */
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+
+/* ---- keyboard focus + reduced motion ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-honey-300);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
