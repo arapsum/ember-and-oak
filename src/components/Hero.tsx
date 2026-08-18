@@ -26,9 +26,6 @@ const STATS = [
 ] as const;
 
 export default function Hero() {
-  const scrollToShop = () =>
-    document.getElementById("shop")?.scrollIntoView({ behavior: "smooth", block: "start" });
-
   return (
     <section id="top" className="relative overflow-hidden">
       {/* ambient glows */}
@@ -69,13 +66,13 @@ export default function Hero() {
 
           <Reveal delay={260}>
             <div className="flex flex-wrap items-center gap-4 mt-9">
-              <button
-                onClick={scrollToShop}
+              <a
+                href="/catalogue"
                 className="group flex items-center gap-3 bg-honey-500 hover:bg-honey-400 text-bark-950 font-bold text-[15px] rounded-full pl-7 pr-5 py-3.5 transition-all duration-300 hover:shadow-[0_10px_36px_rgba(214,142,47,0.35)] hover:-translate-y-0.5"
               >
-                Shop the roast shelf
+                Shop the catalogue
                 <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
+              </a>
               <a
                 href="#promise"
                 className="text-sm font-bold text-cream-300 hover:text-honey-300 border-b border-bark-600 hover:border-honey-500/60 pb-1 transition-colors"

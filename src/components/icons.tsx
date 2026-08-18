@@ -9,6 +9,14 @@ export const SearchIcon = ({ className = "w-5 h-5" }: IconProps) => (
   </svg>
 );
 
+export const FilterIcon = ({ className = "w-5 h-5" }: IconProps) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+    <path d="M4 7h16M4 17h16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    <circle cx="9" cy="7" r="2" fill="var(--color-bark-800)" stroke="currentColor" strokeWidth="1.7" />
+    <circle cx="15" cy="17" r="2" fill="var(--color-bark-800)" stroke="currentColor" strokeWidth="1.7" />
+  </svg>
+);
+
 export const BagIcon = ({ className = "w-5 h-5" }: IconProps) => (
   <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
     <path

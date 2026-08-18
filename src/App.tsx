@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import CartDrawer, { CartLine } from "./components/CartDrawer";
+import CataloguePage from "./components/CataloguePage";
 import CheckoutModal from "./components/CheckoutModal";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -28,7 +29,7 @@ export default function App() {
       return {};
     }
   });
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get("q") ?? "");
   const [category, setCategory] = useState<Category>("All");
   const [sortKey, setSortKey] = useState<SortKey>("featured");
   const [selected, setSelected] = useState<Product | null>(null);
@@ -156,14 +157,17 @@ export default function App() {
   }, [query, category, sortKey]);
 
   const shopCategory = (c: Category) => {
-    setCategory(c);
-    document.getElementById("shop")?.scrollIntoView({ behavior: "smooth" });
+    const params = new URLSearchParams();
+    if (c !== "All") params.set("category", c);
+    window.location.href = `/catalogue${params.toString() ? `?${params.toString()}` : ""}`;
   };
 
   const clearFilters = () => {
     setQuery("");
     setCategory("All");
   };
+
+  const isCatalogue = window.location.pathname === "/catalogue";
 
   return (
     <div className="grain min-h-screen relative">
@@ -177,10 +181,21 @@ export default function App() {
       />
 
       <main>
-        <Hero />
+        {isCatalogue ? (
+          <CataloguePage
+            query={query}
+            onQueryChange={setQuery}
+            cart={cart}
+            onAdd={(product) => addToCart(product, 1)}
+            onSetQty={setQty}
+            onOpen={setSelected}
+          />
+        ) : (
+          <>
+            <Hero />
 
-        {/* ---------- the shelf ---------- */}
-        <section id="shop" className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 scroll-mt-40">
+            {/* ---------- the shelf ---------- */}
+            <section id="shop" className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 scroll-mt-40">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
@@ -270,7 +285,9 @@ export default function App() {
               </button>
             </div>
           )}
-        </section>
+            </section>
+          </>
+        )}
       </main>
 
       <Footer onShopCategory={shopCategory} />
