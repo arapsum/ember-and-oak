@@ -12,12 +12,16 @@ export interface Product {
   varietal: string;
   description: string;
   brewTip: string;
+  brewMethods: BrewMethod[];
   image: string;
   rating: number;
   reviews: number;
   badge?: string;
   stock: number;
 }
+
+export const BREW_METHODS = ["Espresso", "Pour-over", "Batch brew", "Immersion"] as const;
+export type BrewMethod = (typeof BREW_METHODS)[number];
 
 export const CATEGORIES = ["All", "Single Origin", "Blend", "Espresso", "Decaf"] as const;
 export type Category = (typeof CATEGORIES)[number];
@@ -46,6 +50,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A new-crop lot from smallholder farms around Gedeb, fermented 36 hours and sun-dried on raised beds. It pours like iced tea and finishes like marmalade — our brightest cup of the season.",
     brewTip: "Best as a slow V60 pour-over, 1:16 ratio, 94 °C water. Let it cool a little — the florals open up.",
+    brewMethods: ["Pour-over"],
     image:
       "https://image.qwenlm.ai/generated-images/a3572e3f-1acd-4384-b7e8-2a81717958ac/_result.png",
     rating: 4.9,
@@ -68,6 +73,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Grown by the Trujillo family on volcanic soil above San Agustín and dried slowly under shade cloth. Rounded, sweet and endlessly drinkable — the bag our regulars never let run out.",
     brewTip: "A forgiving all-rounder: batch brew, French press or a 1:2 espresso all sing. Start at 20 g in, 40 g out.",
+    brewMethods: ["Batch brew", "Immersion", "Espresso"],
     image:
       "https://image.qwenlm.ai/generated-images/49093461-22df-4f25-9c6c-94b5ac9c33f8/_result.png",
     rating: 4.7,
@@ -90,6 +96,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Our house espresso, built to cut through milk without shouting. A dense, syrupy body from dry-processed Brazils, with Sumatra adding low embers of spice underneath the chocolate.",
     brewTip: "Pull it 18 g in, 36 g out, 28–32 seconds. Rest the bag 10+ days for the crema to fully settle.",
+    brewMethods: ["Espresso"],
     image:
       "https://image.qwenlm.ai/generated-images/d9d512e6-1db6-4daf-93df-a2baaa6e6aa7/_result.png",
     rating: 4.8,
@@ -112,6 +119,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A classic AA auction lot from a cooperative wet mill on the slopes of the Aberdares. Explosive, winey acidity with a brown-sugar backbone — Kenya at its most unapologetic.",
     brewTip: "Shine it in a Chemex or Kalita. Grind a touch finer than you think; the acids reward a long, even extraction.",
+    brewMethods: ["Pour-over"],
     image:
       "https://image.qwenlm.ai/generated-images/97af6e35-4cb5-4157-9c84-d8c8f7ba906b/_result.png",
     rating: 4.8,
@@ -134,6 +142,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Decaffeinated with sugarcane ethanol at origin, so the sweetness survives the process. Soft, nutty and gentle — the evening cup that converts people who swore they 'could taste the decaf'.",
     brewTip: "Decaf extracts faster: drop your water to 90 °C and pull shots a few seconds shorter than usual.",
+    brewMethods: ["Espresso", "Pour-over"],
     image:
       "https://image.qwenlm.ai/generated-images/192ab95c-80d5-492a-91c5-cf49c491097f/_result.png",
     rating: 4.6,
@@ -155,6 +164,7 @@ export const PRODUCTS: Product[] = [
     description:
       "A filter blend designed for lazy Sunday mornings: Guatemalan toffee weight folded into a top note of Ethiopian blossom. Comforting first, interesting second — exactly as it should be.",
     brewTip: "Built for immersion: 60 g per litre in a French press, 4 minutes, one gentle stir at the start.",
+    brewMethods: ["Immersion"],
     image:
       "https://image.qwenlm.ai/generated-images/06f869e4-3d94-48c1-8fc4-6408beafc05c/_result.png",
     rating: 4.7,
