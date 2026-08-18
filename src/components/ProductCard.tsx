@@ -23,18 +23,20 @@ export default function ProductCard({ product, qty, onAdd, onSetQty, onOpen }: P
           <img
             src={product.image}
             alt={`${product.name} coffee bag`}
+            width={800}
+            height={800}
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bark-950/70 via-transparent to-bark-950/20" />
 
           {product.badge && (
-            <span className="absolute top-3.5 left-3.5 text-[11px] font-bold tracking-[0.14em] uppercase bg-honey-500 text-bark-950 rounded-full px-3 py-1.5 shadow-lg">
+            <span className="absolute top-3.5 left-3.5 text-[12px] font-bold tracking-[0.14em] uppercase bg-honey-500 text-bark-950 rounded-full px-3 py-1.5 shadow-lg">
               {product.badge}
             </span>
           )}
 
-          <span className="absolute bottom-3.5 left-3.5 flex items-center gap-2 text-[11px] font-bold tracking-[0.12em] uppercase text-cream-200 bg-bark-950/70 backdrop-blur border border-bark-600/50 rounded-full px-3 py-1.5">
+          <span className="absolute bottom-3.5 left-3.5 flex items-center gap-2 text-[12px] font-bold tracking-[0.12em] uppercase text-cream-200 bg-bark-950/70 backdrop-blur border border-bark-600/50 rounded-full px-3 py-1.5">
             <BeanIcon className="w-3 h-3 text-honey-400" />
             {roastName(product.roast)} roast
           </span>
@@ -47,7 +49,7 @@ export default function ProductCard({ product, qty, onAdd, onSetQty, onOpen }: P
         </div>
 
         <div className="p-5 pb-0">
-          <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-honey-500">
+          <p className="text-[12px] font-bold tracking-[0.22em] uppercase text-honey-500">
             {product.origin}
           </p>
           <h3 className="font-display font-semibold text-[22px] text-cream-100 leading-snug mt-1.5 group-hover:text-honey-200 transition-colors duration-300">
@@ -57,7 +59,7 @@ export default function ProductCard({ product, qty, onAdd, onSetQty, onOpen }: P
             {product.notes.map((n) => (
               <span
                 key={n}
-                className="text-[11.5px] font-semibold text-cream-400 bg-bark-800 border border-bark-700/70 rounded-full px-2.5 py-1"
+                className="text-[12px] font-semibold text-cream-400 bg-bark-800 border border-bark-700/70 rounded-full px-2.5 py-1"
               >
                 {n}
               </span>
@@ -80,17 +82,22 @@ export default function ProductCard({ product, qty, onAdd, onSetQty, onOpen }: P
         {qty === 0 ? (
           <button
             onClick={() => onAdd(product)}
-            className="flex items-center gap-2 bg-bark-800 hover:bg-honey-500 border border-bark-600 hover:border-honey-500 text-cream-100 hover:text-bark-950 font-bold text-sm rounded-full px-5 py-2.5 transition-all duration-300 active:scale-95"
+            aria-label={`Add ${product.name} to cart`}
+            className="flex h-11 min-w-[118px] items-center justify-center gap-2 whitespace-nowrap bg-bark-800 hover:bg-honey-500 border border-bark-600 hover:border-honey-500 text-cream-100 hover:text-bark-950 font-bold text-sm rounded-full px-4 transition-all duration-300 active:scale-95"
           >
             <PlusIcon className="w-4 h-4" />
             Add
           </button>
         ) : (
-          <div className="flex items-center gap-1 bg-bark-800 border border-honey-500/50 rounded-full p-1">
+          <div
+            role="group"
+            aria-label={`${product.name} quantity controls`}
+            className="flex h-11 min-w-[118px] items-center justify-center gap-1 bg-bark-800 border border-honey-500/50 rounded-full p-1"
+          >
             <button
               onClick={() => onSetQty(product.id, qty - 1)}
               aria-label={`Decrease ${product.name} quantity`}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-cream-200 hover:bg-bark-700 hover:text-honey-300 transition-colors active:scale-90"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-cream-200 hover:bg-bark-700 hover:text-honey-300 transition-colors active:scale-90"
             >
               <MinusIcon className="w-3.5 h-3.5" />
             </button>
@@ -99,7 +106,7 @@ export default function ProductCard({ product, qty, onAdd, onSetQty, onOpen }: P
               onClick={() => onSetQty(product.id, qty + 1)}
               disabled={maxed}
               aria-label={`Increase ${product.name} quantity`}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-cream-200 hover:bg-bark-700 hover:text-honey-300 transition-colors active:scale-90 disabled:opacity-30 disabled:hover:bg-transparent"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-cream-200 hover:bg-bark-700 hover:text-honey-300 transition-colors active:scale-90 disabled:opacity-30 disabled:hover:bg-transparent"
             >
               <PlusIcon className="w-3.5 h-3.5" />
             </button>
