@@ -4,6 +4,20 @@ Ember & Oak is a warm, dark single-page storefront for a small-batch coffee roas
 
 This repository currently contains a frontend prototype. Product data and cart state are local to the browser; no real orders, payments, inventory, shipping, or email messages are processed.
 
+## Preview
+
+### Storefront
+
+![Ember & Oak hero storefront](docs/screenshots/hero.jpg)
+
+![Coffee product shelf with filters and cards](docs/screenshots/shelf.jpg)
+
+### Shopping flow
+
+![Coffee product detail modal](docs/screenshots/product-detail.jpg)
+
+![Shopping cart drawer with shipping summary](docs/screenshots/cart-drawer.jpg)
+
 ## Features
 
 - Responsive roastery storefront with hero, roast promise, product shelf, and newsletter signup sections.
