@@ -47,17 +47,23 @@ export default function ProductModal({ product, inCartQty, onClose, onAdd }: Pro
         </button>
 
         <div className="relative h-56 md:h-auto">
-          <img src={product.image} alt={`${product.name} coffee bag`} className="w-full h-full object-cover" />
+          <img
+            src={product.image}
+            alt={`${product.name} coffee bag`}
+            width={800}
+            height={1000}
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-bark-950/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-bark-900/20" />
           {product.badge && (
-            <span className="absolute top-4 left-4 text-[11px] font-bold tracking-[0.14em] uppercase bg-honey-500 text-bark-950 rounded-full px-3 py-1.5">
+            <span className="absolute top-4 left-4 text-[12px] font-bold tracking-[0.14em] uppercase bg-honey-500 text-bark-950 rounded-full px-3 py-1.5">
               {product.badge}
             </span>
           )}
         </div>
 
         <div className="overflow-y-auto p-6 sm:p-8">
-          <p className="text-[11px] font-bold tracking-[0.24em] uppercase text-honey-500">
+          <p className="text-[12px] font-bold tracking-[0.24em] uppercase text-honey-500">
             {product.category} · {product.origin}
           </p>
           <div className="flex items-start justify-between gap-4 mt-2.5">
@@ -97,7 +103,7 @@ export default function ProductModal({ product, inCartQty, onClose, onAdd }: Pro
               { k: "Roast level", v: roastName(product.roast), icon: <RoastDots level={product.roast} /> },
             ].map((row) => (
               <div key={row.k} className="bg-bark-850 px-4 py-3.5">
-                <dt className="flex items-center gap-2 text-[11px] tracking-[0.16em] uppercase font-bold text-cream-500">
+                <dt className="flex items-center gap-2 text-[12px] tracking-[0.16em] uppercase font-bold text-cream-500">
                   <span className="text-honey-500">{row.icon}</span>
                   {row.k}
                 </dt>
@@ -106,8 +112,8 @@ export default function ProductModal({ product, inCartQty, onClose, onAdd }: Pro
             ))}
           </dl>
 
-          <div className="flex items-center gap-4 mt-7">
-            <div className="flex items-center gap-1 bg-bark-800 border border-bark-600 rounded-full p-1.5">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-7">
+            <div className="self-start flex items-center gap-1 h-[52px] bg-bark-800 border border-bark-600 rounded-full p-1.5 shrink-0">
               <button
                 onClick={() => setQty(Math.max(1, effectiveQty - 1))}
                 aria-label="Decrease quantity"
@@ -128,10 +134,12 @@ export default function ProductModal({ product, inCartQty, onClose, onAdd }: Pro
 
             <button
               onClick={() => onAdd(product, effectiveQty)}
-              className="group flex-1 flex items-center justify-center gap-3 bg-honey-500 hover:bg-honey-400 text-bark-950 font-bold rounded-full py-3.5 px-6 transition-all duration-300 hover:shadow-[0_10px_32px_rgba(214,142,47,0.35)] active:scale-[0.98]"
+              className="group w-full sm:flex-1 min-w-0 h-[52px] flex items-center justify-center gap-3 bg-honey-500 hover:bg-honey-400 text-bark-950 font-bold text-sm rounded-full px-4 sm:px-6 whitespace-nowrap transition-all duration-300 hover:shadow-[0_10px_32px_rgba(214,142,47,0.35)] active:scale-[0.98]"
             >
-              <BagIcon className="w-5 h-5" />
-              Add {effectiveQty > 1 ? `${effectiveQty} ` : ""}to cart · {money(product.price * effectiveQty)}
+              <BagIcon className="w-5 h-5 shrink-0" />
+              <span className="whitespace-nowrap">
+                Add {effectiveQty > 1 ? `${effectiveQty} ` : ""}to cart · {money(product.price * effectiveQty)}
+              </span>
             </button>
           </div>
 
@@ -145,8 +153,8 @@ export default function ProductModal({ product, inCartQty, onClose, onAdd }: Pro
           <div className="flex gap-3.5 mt-6 bg-olive-500/10 border border-olive-500/25 rounded-xl px-5 py-4">
             <LeafIcon className="w-5 h-5 text-olive-300 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-olive-300">Brew tip</p>
-              <p className="text-cream-300 text-[13.5px] leading-relaxed mt-1">{product.brewTip}</p>
+              <p className="text-[12px] font-bold tracking-[0.18em] uppercase text-olive-300">Brew tip</p>
+              <p className="text-[13px] text-cream-300 leading-relaxed mt-1">{product.brewTip}</p>
             </div>
           </div>
         </div>
